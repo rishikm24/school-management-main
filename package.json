@@ -1,0 +1,11 @@
+{
+  "name": "school-management-main",
+  "version": "1.0.0",
+  "description": "A school management system which allows users to modify &amp; add courses being taught in school and also add students",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
