@@ -3,8 +3,9 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express()
-
 const dotenv = require('dotenv')
+const router = require('./common/app.routes')
+
 dotenv.config({ path: path.resolve(__dirname) + '/../.env' })
 
 app.use(bodyParser.json({ limit: "5mb" }))
@@ -13,6 +14,8 @@ app.use(cookieParser())
 
 global.MongoDao = require('./common/mongo/mongoose');
 MongoDao.connectDB(process.env.MONGO_URL)
+
+app.use('/api/schoolapp', router)
 
 const port = process.env.PORT || 3000
 app.listen(port, () => {
