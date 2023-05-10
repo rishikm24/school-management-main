@@ -46,6 +46,21 @@ const courseSchema = new mongoose.Schema({
     updated_by: { type: ObjectId, required: true }
 }, { timestamps: true })
 
+const studentLessonSchema = new mongoose.Schema({
+    student_id: { type: ObjectId, required: true },
+    lesson_id: { type: ObjectId, required: true },
+    course_id: { type: ObjectId, required: true },
+    is_completed: { type: Boolean, required: true }
+}, { timestamps: true })
+
+const studentQuizSchema = new mongoose.Schema({
+    student_id: { type: ObjectId, required: true },
+    quiz_id: { type: ObjectId, required: true },
+    course_id: { type: ObjectId, required: true },
+    marks_obtained: { type: Number, required: true }
+}, { timestamps: true })
+
+
 const roleSchema = new mongoose.Schema({
     role_name: { type: String, required: true },
     role_code: { type: String, required: true },
@@ -55,7 +70,9 @@ const roleSchema = new mongoose.Schema({
 const User = mongoose.model('users', userSchema)
 const Course = mongoose.model('courses', courseSchema)
 const Role = mongoose.model('roles', roleSchema)
+const studentLesson = mongoose.model('student_lessons', studentLessonSchema)
+const studentQuiz = mongoose.model('student_quizzes', studentQuizSchema)
 
 module.exports = {
-    User, Course, Role
+    User, Course, Role, studentLesson, studentQuiz
 }
