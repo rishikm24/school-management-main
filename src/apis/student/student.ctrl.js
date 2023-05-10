@@ -89,6 +89,26 @@ class studentCtrl {
             return res.send(status, { success: false, msg })
         }
     }
+
+    static async getCourseProgress(req, res, next) {
+        try {
+            if (req.userRole !== 'Student') {
+                return res.send(StatusCodes.BAD_REQUEST, { success: false, msg: 'Only students can enter marks' })
+            }
+            const studentId = req.userId
+            const courseId = req.params.courseId
+            if (!courseId) {
+                return res.send(StatusCodes.BAD_REQUEST, { success: false, msg: 'Course ID is missing' })
+            }
+            const courseProgress = await studentService.getOverallCourseProgress(studentId, courseId)
+            return res.send(StatusCodes.OK, { success: true, data: courseProgress })
+        } catch (err) {
+            console.log(err)
+            const msg = err.msg || err.message || 'Error in getting course progress'
+            const status = err.status || StatusCodes.INTERNAL_SERVER_ERROR
+            return res.send(status, { success: false, msg })
+        }
+    }
 }
 
 module.exports = studentCtrl
