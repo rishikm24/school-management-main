@@ -8,6 +8,7 @@ const studentRouter = require('../apis/student/student.router')
 
 router.post('/signup', userCtrl.signupUser)
 router.post('/login', userCtrl.login)
+router.post('/user/update', utils.isAuthenticated, userCtrl.updateUser)
 
 router.use('/courses', utils.isAuthenticated, courseRouter)
 router.use('/student', utils.isAuthenticated, studentRouter)

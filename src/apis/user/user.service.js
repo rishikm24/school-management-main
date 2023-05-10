@@ -5,7 +5,6 @@ const validator = require('validator')
 class userService {
     static async validateUserDetails(userData) {
         try {
-            // TODO: add proper validation
             let userCheck = await User.findOne({ email: userData.email })
             if (userCheck) {
                 return { success: false, msg: 'User already exists' }
@@ -44,6 +43,7 @@ class userService {
             if (!validator.isMobilePhone(String(userData.mobile), ['en-IN'])) {
                 return { success: false, msg: 'Invalid mobile number' }
             }
+            userData.status = true
 
             return { success: true, userData }
         } catch (err) {
@@ -74,6 +74,20 @@ class userService {
                 return { success: false, msg: 'Incorrect password' }
             }
             return { success: true, userDetails }
+        } catch (err) {
+            console.log(err)
+            throw err
+        }
+    }
+
+    static async updateUser(userData) {
+        try {
+            if (userData.password) {
+                const hashedPassword = await bcryptjs.hash(userData.password, 10)
+                userData.password = hashedPassword
+            }
+            const user = await User.findByIdAndUpdate(userData._id, { ...userData }, { returnDocument: 'after' })
+            return { success: true, data: user }
         } catch (err) {
             console.log(err)
             throw err
