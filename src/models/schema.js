@@ -14,17 +14,9 @@ const userSchema = new mongoose.Schema({
     pincode: String,
     school_name: { type: String, required: true },
     role_id: { type: ObjectId, required: true },
-    is_enabled: Boolean,
+    status: Boolean,
     last_login: Date
 }, { timestamps: true })
-
-userSchema.pre('save', async function (done) {
-    if (this.isModified('password')) {
-        const passwordHash = bcryptjs.hashSync(this.get('password'), 10)
-        this.set('password', passwordHash);
-    }
-    done();
-})
 
 // const schoolSchema = new mongoose.Schema({
 //     name: String,
@@ -38,14 +30,29 @@ userSchema.pre('save', async function (done) {
 //     status: Boolean
 // }, { timestamps: true })
 
-// const rolesSchema
-// const courseSchema
+const courseSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    description: { type: String },
+    status: { type: Boolean, required: true },
+    created_by: { type: ObjectId, required: true },
+    updated_by: { type: ObjectId, required: true }
+}, { timestamps: true })
+
+const roleSchema = new mongoose.Schema({
+    role_name: { type: String, required: true },
+    role_code: { type: String, required: true },
+    status: { type: Boolean, required: true }
+}, { timestamps: true })
+
 // const studentCourseSchema
+// const assessmentSchema
 // const studentAssessmentSchema
 
 // const Schools = mongoose.model('schools', schoolSchema)
 const User = mongoose.model('users', userSchema)
+const Course = mongoose.model('courses', courseSchema)
+const Role = mongoose.model('roles', roleSchema)
 
 module.exports = {
-    User
+    User, Course, Role
 }

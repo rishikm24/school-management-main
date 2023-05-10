@@ -15,7 +15,7 @@ class Utils {
 
     static async isAuthenticated(req, res, next) {
         try {
-            const token = req.headers.Authorization.replace('Bearer', '')
+            const token = req.headers.authorization ? req.headers.authorization.replace('Bearer', '') : ''
             const decoded = jwt.verify(token, process.env.TOKEN_SECRET)
             if (!decoded) {
                 return res.send(StatusCodes.UNAUTHORIZED, { success: false, msg: "Could not identify user" })
@@ -27,7 +27,8 @@ class Utils {
             return next()
         } catch (err) {
             console.log(err)
-            throw err
+            const msg = err.message || err.msg || "Error in login"
+            return res.send(StatusCodes.UNAUTHORIZED, { success: false, msg })
         }
     }
 
