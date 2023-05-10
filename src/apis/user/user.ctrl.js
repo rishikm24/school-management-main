@@ -6,7 +6,7 @@ const utils = require('../../common/utils')
 class UserCtrl {
     static async signupUser(req = request, res = response, next) {
         try {
-            const validationResp = userService.validateUserDetails(req.body)
+            const validationResp = await userService.validateUserDetails(req.body)
             if (!validationResp.success) {
                 return res.send(StatusCodes.BAD_REQUEST, { success: false, msg: validationResp.msg })
             }
@@ -25,7 +25,7 @@ class UserCtrl {
             if (!validationResp.success) {
                 return res.send(StatusCodes.BAD_REQUEST, { success: false, msg: validationResp.msg })
             }
-            const token = userService.generateJwtToken(validationResp.userDetails.id)
+            const token = utils.generateJwtToken(validationResp.userDetails.id)
             return res.send(StatusCodes.OK, { success: true, data: validationResp.userDetails, token })
         } catch (err) {
             console.log(err)
@@ -33,6 +33,8 @@ class UserCtrl {
             return res.send(StatusCodes.INTERNAL_SERVER_ERROR, { success: false, msg })
         }
     }
+
+    //TODO: add updateUser api
 }
 
 module.exports = UserCtrl

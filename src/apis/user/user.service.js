@@ -1,13 +1,12 @@
 const bcryptjs = require('bcryptjs')
-const jwt = require('jsonwebtoken')
 const { User } = require('../../models/schema')
 const validator = require('validator')
 
 class userService {
-    static validateUserDetails(userData) {
+    static async validateUserDetails(userData) {
         try {
             // TODO: add proper validation
-            let userCheck = User.findOne({ email: userData.email })
+            let userCheck = await User.findOne({ email: userData.email })
             if (userCheck) {
                 return { success: false, msg: 'User already exists' }
             }
@@ -42,7 +41,7 @@ class userService {
                 return { success: false, msg: 'Password is too small' }
             }
 
-            if (!validator.isMobilePhone(String(userData.mobile))) {
+            if (!validator.isMobilePhone(String(userData.mobile), ['en-IN'])) {
                 return { success: false, msg: 'Invalid mobile number' }
             }
 
@@ -55,9 +54,9 @@ class userService {
 
     static async addUserDetails(userData) {
         try {
-            const hashedPassword = bcryptjs.hashSync(userData.password, 10)
+            const hashedPassword = await bcryptjs.hash(userData.password, 10)
             const user = await User.create({ ...userData, password: hashedPassword })
-            return user._doc
+            return user
         } catch (err) {
             console.log(err)
             throw err
@@ -70,21 +69,11 @@ class userService {
             if (!userDetails) {
                 return { success: false, msg: 'User not registered' }
             }
-            const passwordCheck = bcryptjs.compareSync(userData.password, userDetails.password)
+            const passwordCheck = await bcryptjs.compare(userData.password, userDetails.password)
             if (!passwordCheck) {
                 return { success: false, msg: 'Incorrect password' }
             }
             return { success: true, userDetails }
-        } catch (err) {
-            console.log(err)
-            throw err
-        }
-    }
-
-    static generateJwtToken(userId) {
-        try {
-            let token = jwt.sign({ userId }, process.env.TOKEN_SECRET, { expiresIn: '7 days' })
-            return token
         } catch (err) {
             console.log(err)
             throw err
