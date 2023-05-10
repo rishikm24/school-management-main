@@ -23,7 +23,8 @@ const lessonSchema = new mongoose.Schema({
     number: { type: Number, required: true },
     created_by: { type: ObjectId, required: true },
     updated_by: { type: ObjectId, required: true },
-    status: { type: Boolean, required: true }
+    status: { type: Boolean, required: true },
+    is_completed: { type: Boolean }
 }, { timestamps: true })
 
 const quizSchema = new mongoose.Schema({
@@ -32,7 +33,8 @@ const quizSchema = new mongoose.Schema({
     total_marks: { type: Number, required: true },
     created_by: { type: ObjectId, required: true },
     updated_by: { type: ObjectId, required: true },
-    status: { type: Boolean, required: true }
+    status: { type: Boolean, required: true },
+    marks_obtained: { type: Number }
 }, { timestamps: true })
 
 const courseSchema = new mongoose.Schema({
