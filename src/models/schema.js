@@ -34,6 +34,7 @@ const courseSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String },
     status: { type: Boolean, required: true },
+    enrolled_students: { type: [ObjectId] },
     created_by: { type: ObjectId, required: true },
     updated_by: { type: ObjectId, required: true }
 }, { timestamps: true })

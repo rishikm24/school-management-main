@@ -22,6 +22,9 @@ class Utils {
             }
             req.userId = decoded.userId
             const userDetails = await User.findById(req.userId)
+            if (userDetails.status == 'false') {
+                return res.send(StatusCodes.UNAUTHORIZED, { success: false, msg: "User is inactive" })
+            }
             const roleDetails = await Role.findById(userDetails.role_id)
             req.userRole = roleDetails.role_name
             return next()

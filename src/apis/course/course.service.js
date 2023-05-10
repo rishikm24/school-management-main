@@ -39,6 +39,7 @@ class CourseService {
             }
             courseData.created_by = userId
             courseData.updated_by = userId
+            courseData.enrolled_students = []
             return { success: true, data: courseData }
         } catch (err) {
             console.log(err)
