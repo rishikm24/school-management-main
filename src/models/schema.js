@@ -18,23 +18,30 @@ const userSchema = new mongoose.Schema({
     last_login: Date
 }, { timestamps: true })
 
-// const schoolSchema = new mongoose.Schema({
-//     name: String,
-//     code: String,
-//     telephone: Number,
-//     email: String,
-//     address: String,
-//     city: String,
-//     state: String,
-//     pincode: String,
-//     status: Boolean
-// }, { timestamps: true })
+const lessonSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    number: { type: Number, required: true },
+    created_by: { type: ObjectId, required: true },
+    updated_by: { type: ObjectId, required: true },
+    status: { type: Boolean, required: true }
+}, { timestamps: true })
+
+const quizSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    number: { type: Number, required: true },
+    total_marks: { type: Number, required: true },
+    created_by: { type: ObjectId, required: true },
+    updated_by: { type: ObjectId, required: true },
+    status: { type: Boolean, required: true }
+}, { timestamps: true })
 
 const courseSchema = new mongoose.Schema({
     name: { type: String, required: true },
     description: { type: String },
     status: { type: Boolean, required: true },
     enrolled_students: { type: [ObjectId] },
+    lessons: { type: [lessonSchema] },
+    quizzes: { type: [quizSchema] },
     created_by: { type: ObjectId, required: true },
     updated_by: { type: ObjectId, required: true }
 }, { timestamps: true })
@@ -45,11 +52,6 @@ const roleSchema = new mongoose.Schema({
     status: { type: Boolean, required: true }
 }, { timestamps: true })
 
-// const studentCourseSchema
-// const assessmentSchema
-// const studentAssessmentSchema
-
-// const Schools = mongoose.model('schools', schoolSchema)
 const User = mongoose.model('users', userSchema)
 const Course = mongoose.model('courses', courseSchema)
 const Role = mongoose.model('roles', roleSchema)
