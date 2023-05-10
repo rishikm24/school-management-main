@@ -60,7 +60,7 @@ class studentCtrl {
             return res.send(StatusCodes.OK, { success: true, msg: 'Quiz entry successful' })
         } catch (err) {
             console.log(err)
-            const msg = err.msg || err.message || 'Error in student unenrolment'
+            const msg = err.msg || err.message || 'Error in quiz entry'
             const status = err.status || StatusCodes.INTERNAL_SERVER_ERROR
             return res.send(status, { success: false, msg })
         }
@@ -84,7 +84,7 @@ class studentCtrl {
             return res.send(StatusCodes.OK, { success: true, msg: 'Lesson entry successful' })
         } catch (err) {
             console.log(err)
-            const msg = err.msg || err.message || 'Error in student unenrolment'
+            const msg = err.msg || err.message || 'Error in lesson entry'
             const status = err.status || StatusCodes.INTERNAL_SERVER_ERROR
             return res.send(status, { success: false, msg })
         }

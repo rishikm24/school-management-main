@@ -30,7 +30,7 @@ class Utils {
             return next()
         } catch (err) {
             console.log(err)
-            const msg = err.message || err.msg || "Error in login"
+            const msg = err.message || err.msg || "Error in user authentication"
             return res.send(StatusCodes.UNAUTHORIZED, { success: false, msg })
         }
     }

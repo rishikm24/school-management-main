@@ -44,7 +44,7 @@ class UserCtrl {
             return res.send(StatusCodes.OK, { success: true, data: validationResp.data })
         } catch (err) {
             console.log(err)
-            const msg = err.message || 'Error in user login'
+            const msg = err.message || 'Error in user update'
             return res.send(StatusCodes.INTERNAL_SERVER_ERROR, { success: false, msg })
         }
     }

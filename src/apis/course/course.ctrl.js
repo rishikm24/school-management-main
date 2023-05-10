@@ -36,7 +36,7 @@ class CourseCtrl {
             return res.send(StatusCodes.OK, { success: true, data: courseDetails })
         } catch (err) {
             console.log(err)
-            const msg = err.message || 'Error in getting courses'
+            const msg = err.message || 'Error in creating courses'
             return res.send(StatusCodes.INTERNAL_SERVER_ERROR, { success: false, msg })
         }
     }
@@ -65,7 +65,7 @@ class CourseCtrl {
             return res.send(StatusCodes.OK, { success: true, data: courseDetails.data })
         } catch (err) {
             console.log(err)
-            const msg = err.message || 'Error in getting courses'
+            const msg = err.message || 'Error in updating courses'
             return res.send(StatusCodes.INTERNAL_SERVER_ERROR, { success: false, msg })
         }
     }

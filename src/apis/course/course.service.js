@@ -33,7 +33,6 @@ class CourseService {
             if (!courseData.name) {
                 return { success: false, msg: 'Course name missing' }
             }
-            // TODO: check with DB course names
             if (typeof courseData.status !== 'boolean') {
                 return { success: false, msg: 'Course status missing' }
             }
@@ -106,7 +105,6 @@ class CourseService {
             if (courseData.name) {
                 updates.name = courseData.name
             }
-            //TODO: validation for quiz & lesson fields
             if (courseData.quizzes && Array.isArray(courseData.quizzes)) {
                 updates.quizzes = courseCheck.quizzes
                 for (let quiz of courseData.quizzes) {
