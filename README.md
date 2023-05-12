@@ -1,5 +1,5 @@
 # school-management
-A school management system which allows users to modify &amp; add courses being taught in school and also add students 
+A school management system which allows users to modify &amp; add courses being taught in school and also add student marks 
 
 Instructions to setup:
 1. Install Node.js
